@@ -1,90 +1,188 @@
-{% comment %}
-    This include creates a modal pop up with data export options.
-    The logic of which formats appear is based on config-nav stubs:
-    if subject.html, map.html, location.html, or timeline.html are present, 
-    corresponding data formats will be available for download.
-{%- endcomment -%}
-
-{%- assign stubs = site.data.config-nav | map: 'stub' | join: ';' -%}
-<button type="button" class="btn btn-primary btn-lg float-md-end" data-bs-toggle="modal" data-bs-target="#dataModal">Download Data</button>
+{% comment %} This include creates a modal pop up with data export options. The
+logic of which formats appear is based on config-nav stubs: if subject.html,
+map.html, location.html, or timeline.html are present, corresponding data
+formats will be available for download. {%- endcomment -%} {%- assign stubs =
+site.data.config-nav | map: 'stub' | join: ';' -%}
+<button
+  type="button"
+  class="btn btn-primary btn-lg float-md-end"
+  data-bs-toggle="modal"
+  data-bs-target="#dataModal"
+>
+  データのダウンロード
+</button>
 <!-- Modal -->
-<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title" id="dataModalLabel">Collection Data</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+<div
+  class="modal fade"
+  id="dataModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dataModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="dataModalLabel">コレクションデータ</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          このコレクションのデータを再利用可能な形式でダウンロードできます。
+        </p>
 
-                <p>Download this collection's data in a variety of reusable formats.</p>
-                
-                {% if site.data.theme.metadata-export-fields %}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Complete Metadata</h2>
-                        <p class="card-text">All metadata fields for all collection items, available as a CSV spreadsheet (usable in Excel, Google Sheets, and similar programs) or JSON file (often used with web applications).</p>
-                        <a href="{{ '/assets/data/metadata.csv' | relative_url }}" class="btn btn-outline-dark" target="_blank">Metadata CSV</a>
-                        <a href="{{ '/assets/data/metadata.json' | relative_url }}" class="btn btn-outline-dark" target="_blank">Metadata JSON</a>
-                    </div>
-                </div>
-                {%- endif -%}
-                {% if site.data.theme.metadata-facets-fields %}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Metadata Facets</h2>
-                        <p class="card-text">List of unique values and their count for specific metadata fields, useful for understanding content of the fields.</p>
-                        <a href="{{ '/assets/data/facets.json' | relative_url }}" class="btn btn-outline-dark" target="_blank">Facets JSON</a>
-                    </div>
-                </div>
-                {%- endif -%}
-                {% if stubs contains "subject" %}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Subject Metadata</h2>
-                        <p class="card-text">Unique values and counts of subject metadata, useful for further analyzing the content of this collection.</p>
-                        <a href="{{ '/assets/data/subjects.csv' | relative_url }}" class="btn btn-outline-dark" target="_blank">Subjects CSV</a>
-                        <a href="{{ '/assets/data/subjects.json' | relative_url }}" class="btn btn-outline-dark" target="_blank">Subjects JSON</a>
-                    </div>
-                </div>
-                {% endif %}
-                {% if stubs contains "location" %}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Locations</h2>
-                        <p class="card-text">Unique values and counts of location metadata, useful for further visualization and analysis of this collection's place names.</p>
-                        <a href="{{ '/assets/data/locations.csv' | relative_url }}" class="btn btn-outline-dark" target="_blank">Locations CSV</a>
-                        <a href="{{ '/assets/data/locations.json' | relative_url }}" class="btn btn-outline-dark" target="_blank">Locations JSON</a>
-                    </div>
-                </div>
-                {%- endif -%}
-                {% if stubs contains "map" %}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">GeoJSON</h2>
-                        <p class="card-text">Metadata for all collection items that have geographic coordinates in <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank" rel="noopener">GeoJSON</a> format, useful for further exploration and analysis of this collection through a geographical lense.</p>
-                        <a href="{{ '/assets/data/geodata.json' | relative_url }}" class="btn btn-outline-dark" target="_blank">Geodata JSON</a>
-                    </div>
-                </div>
-                {%- endif -%}
-                {% if stubs contains "timeline" %}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Timeline</h2>
-                        <p class="card-text">A time-focused JSON data export designed for use with <a href="https://timeline.knightlab.com/" target="_blank" rel="noopener">TimelineJS</a>.</p>
-                        <a href="{{ '/assets/data/timelinejs.json' | relative_url }}" class="btn btn-outline-dark" target="_blank">TimelineJS JSON</a>
-                    </div>
-                </div>
-                {%- endif -%}
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h2 class="card-title h4">Website Source Code</h2>
-                        <p class="card-text">GitHub repository containing source code for this project built with <a href="https://github.com/CollectionBuilder/collectionbuilder-gh" target="_blank" rel="noopener">CollectionBuilder-GH</a>.</p>
-                        <a href="{{ site.source-code | default: 'https://github.com/CollectionBuilder/collectionbuilder-gh' }}" class="btn btn-outline-dark" target="_blank">Source Code</a>
-                    </div>
-                </div>
-
-            </div>
+        {% if site.data.theme.metadata-export-fields %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">完全なメタデータ</h2>
+            <p class="card-text">
+              すべてのコレクションアイテムのすべてのメタデータフィールドを、CSVスプレッドシート
+              （ExcelやGoogleスプレッドシートなどで利用可能）またはJSONファイル
+              （Webアプリケーションでよく使用される形式）として取得できます。
+            </p>
+            <a
+              href="{{ '/assets/data/metadata.csv' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >メタデータCSV</a
+            >
+            <a
+              href="{{ '/assets/data/metadata.json' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >メタデータJSON</a
+            >
+          </div>
         </div>
+        {%- endif -%} {% if site.data.theme.metadata-facets-fields %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">メタデータファセット</h2>
+            <p class="card-text">
+              特定のメタデータフィールドの一意の値とそのカウントリストで、
+              フィールドの内容を把握するのに役立ちます。
+            </p>
+            <a
+              href="{{ '/assets/data/facets.json' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >ファセットJSON</a
+            >
+          </div>
+        </div>
+        {%- endif -%} {% if stubs contains "subject" %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">主題メタデータ</h2>
+            <p class="card-text">
+              主題メタデータの一意の値とそのカウントをリスト化し、このコレクションの内容をさらに分析するのに役立ちます。
+            </p>
+            <a
+              href="{{ '/assets/data/subjects.csv' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >主題CSV</a
+            >
+            <a
+              href="{{ '/assets/data/subjects.json' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >主題JSON</a
+            >
+          </div>
+        </div>
+        {% endif %} {% if stubs contains "location" %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">場所データ</h2>
+            <p class="card-text">
+              場所メタデータの一意の値とそのカウントをリスト化し、このコレクションの地名の可視化や分析に役立ちます。
+            </p>
+            <a
+              href="{{ '/assets/data/locations.csv' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >場所CSV</a
+            >
+            <a
+              href="{{ '/assets/data/locations.json' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >場所JSON</a
+            >
+          </div>
+        </div>
+        {%- endif -%} {% if stubs contains "map" %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">GeoJSON</h2>
+            <p class="card-text">
+              地理座標を含むすべてのコレクションアイテムのメタデータを
+              <a
+                href="https://en.wikipedia.org/wiki/GeoJSON"
+                target="_blank"
+                rel="noopener"
+                >GeoJSON</a
+              >
+              形式で取得できます。地理的な視点からコレクションをさらに探索・分析するのに適しています。
+            </p>
+            <a
+              href="{{ '/assets/data/geodata.json' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >GeoJSONデータ</a
+            >
+          </div>
+        </div>
+        {%- endif -%} {% if stubs contains "timeline" %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">Timeline</h2>
+            <p class="card-text">
+              <a
+                href="https://timeline.knightlab.com/"
+                target="_blank"
+                rel="noopener"
+                >TimelineJS</a
+              >
+              に対応した、時間に焦点を当てたJSONデータエクスポート。
+            </p>
+            <a
+              href="{{ '/assets/data/timelinejs.json' | relative_url }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >TimelineJS JSON</a
+            >
+          </div>
+        </div>
+        {%- endif -%}
+        <div class="card my-3">
+          <div class="card-body">
+            <h2 class="card-title h4">ウェブサイトソースコード</h2>
+            <p class="card-text">
+              このプロジェクトのソースコードを収録したGitHubリポジトリです。このプロジェクトは
+              <a
+                href="https://github.com/CollectionBuilder/collectionbuilder-gh"
+                target="_blank"
+                rel="noopener"
+                >CollectionBuilder-GH</a
+              >
+              を使用して構築されています。
+            </p>
+            <a
+              href="{{ site.source-code | default: 'https://github.com/CollectionBuilder/collectionbuilder-gh' }}"
+              class="btn btn-outline-dark"
+              target="_blank"
+              >ソースコード</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
