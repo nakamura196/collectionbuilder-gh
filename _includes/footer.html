@@ -1,71 +1,87 @@
-<footer class="bg-dark pt-4 mt-auto container-fluid">
-  <div class="row border-bottom border-white pb-4 mb-2">
-    <div class="col-md-7 px-4 mt-2">
-      <h2 class="h4">
-        <a href="{{ '/' | relative_url }}" class="text-white font-weight-normal"
-          >{{ site.title }}</a
-        >
-      </h2>
-      <p class="text-white"><small>{{ site.description }}</small></p>
-      <nav>
-        <ul id="footer-nav" class="nav nav-pills">
-          {%- assign navItems = site.data.config-nav | where_exp: 'item',
-          'item.dropdown_parent == nil' -%} {% for nav in navItems %}
-          <li class="nav-item">
-            {% if nav.stub %}
-            <a
-              class="nav-link text-light{% if page.url == nav.stub %} active{% endif %}"
-              href="{{ nav.stub | relative_url }}"
-              >{{ nav.display_name }}</a
-            >
-            {%- else -%} {% assign childStub = site.data.config-nav | where_exp:
-            'item', 'item.dropdown_parent == nav.display_name' | first %}
-            <a
-              class="nav-link text-light{% if page.url == childStub.stub %} active{% endif %}"
-              href="{{ childStub.stub | relative_url }}"
-              >{{ nav.display_name }}</a
-            >
-            {% endif %}
-          </li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-    </div>
-
-    <div class="col-md-5 mt-2 text-end">
-      {% if site.organization-logo-nav %}
-      <p class="text-end">
-        <a href="{{ site.organization-link }}" target="_blank" rel="noopener">
-          <img
-            id="footer-logo"
-            class="img-fluid"
-            src="{{ site.organization-logo-nav | relative_url }}"
-            alt="{{ site.organization-name }} home"
-          />
-        </a>
-      </p>
-      {% endif %}
-      <p class="text-white" id="footer-credits">
-        <small
-          ><em>built with</em>
-          <a
-            href="https://collectionbuilder.github.io/"
-            target="_blank"
-            rel="noopener"
-            title="CollectionBuilder"
+<footer class="footer container-fluid">
+  <div class="container">
+    <div class="row border-bottom border-white pb-4 mb-4">
+      <div class="col-md-7 px-4 mt-2">
+        <h2 class="h3 mb-3">
+          <a href="{{ '/' | relative_url }}" class="text-white font-weight-bold text-decoration-none"
+            >{{ site.title }}</a
           >
-            <img
-              src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}"
-              class="img-fluid"
-              alt="CollectionBuilder logo"
-            />
-          </a>
-        </small>
-      </p>
-    </div>
-  </div>
+        </h2>
+        <p class="text-white mb-4"><small>{{ site.description }}</small></p>
+        <nav>
+          <ul id="footer-nav" class="nav nav-pills">
+            {%- assign navItems = site.data.config-nav | where_exp: 'item',
+            'item.dropdown_parent == nil' -%} {% for nav in navItems %}
+            <li class="nav-item me-2 mb-2">
+              {% if nav.stub %}
+              <a
+                class="nav-link text-light glass-card{% if page.url == nav.stub %} active{% endif %}"
+                href="{{ nav.stub | relative_url }}"
+                style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;"
+                >{{ nav.display_name }}</a
+              >
+              {%- else -%} {% assign childStub = site.data.config-nav | where_exp:
+              'item', 'item.dropdown_parent == nav.display_name' | first %}
+              <a
+                class="nav-link text-light glass-card{% if page.url == childStub.stub %} active{% endif %}"
+                href="{{ childStub.stub | relative_url }}"
+                style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;"
+                >{{ nav.display_name }}</a
+              >
+              {% endif %}
+            </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </div>
 
-  <div class="col-md-12 text-center pt-3 pb-1">
-    <p class="text-white">最終更新日 {{ site.time | date: '%Y' }}</p>
+      <div class="col-md-5 mt-2 text-end">
+        {% if site.organization-logo-nav %}
+        <div class="mb-4">
+          <a href="{{ site.organization-link }}" target="_blank" rel="noopener" class="text-decoration-none">
+            <div class="glass-card d-inline-block p-3" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);">
+              <img
+                id="footer-logo"
+                class="img-fluid"
+                src="{{ site.organization-logo-nav | relative_url }}"
+                alt="{{ site.organization-name }} home"
+                style="filter: brightness(1.1);"
+              />
+            </div>
+          </a>
+        </div>
+        {% endif %}
+        <div class="glass-card p-3" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);" id="footer-credits">
+          <p class="text-white mb-0">
+            <small
+              ><em>built with</em>
+              <a
+                href="https://collectionbuilder.github.io/"
+                target="_blank"
+                rel="noopener"
+                title="CollectionBuilder"
+                class="text-decoration-none"
+              >
+                <img
+                  src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}"
+                  class="img-fluid ms-2"
+                  alt="CollectionBuilder logo"
+                  style="height: 30px; filter: brightness(1.2);"
+                />
+              </a>
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-center py-3">
+        <p class="text-white mb-0 opacity-75">
+          <small>最終更新日 {{ site.time | date: '%Y' }} | 
+          <span class="text-white-50">Modern Design by CollectionBuilder</span></small>
+        </p>
+      </div>
+    </div>
   </div>
 </footer>

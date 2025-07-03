@@ -1,27 +1,44 @@
 {% if page.layout == "home-infographic" and site.data.theme.featured-image %}
 <style>
   #home-banner {
-      background-image: url('{% include image/featured-image.html %}');
+      background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('{% include image/featured-image.html %}');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: {{ site.data.theme.home-banner-image-position | default: 'center' }};
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+  }
+  #home-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,50 1000,200 0,200"/><polygon fill="rgba(255,255,255,0.03)" points="0,50 1000,100 1000,200 0,200"/></svg>');
+      background-size: cover;
   }
   #home-title-box {
-      padding-top: {{ site.data.theme.home-title-y-padding | default: '5em' }};
-      padding-bottom: {{ site.data.theme.home-title-y-padding | default: '5em' }};
+      padding-top: {{ site.data.theme.home-title-y-padding | default: '8em' }};
+      padding-bottom: {{ site.data.theme.home-title-y-padding | default: '8em' }};
+      position: relative;
+      z-index: 2;
   }
   @media screen and (max-width: 576px) {
       #home-title-box {
           max-height: 500px;
+          padding-top: 5em;
+          padding-bottom: 5em;
       }
   }
 </style>
 <div id="home-banner" class="container-fluid mb-0 p-0">
   <div id="home-title-box" class="position-relative">
-    <div class="p-2 text-center text-white bg-dark bg-opacity-75">
+    <div class="p-4 text-center text-white">
       {% if site.organization-logo-nav %}
       <a
-        class="d-none d-md-block"
+        class="d-none d-md-block mb-4"
         href="{{ site.organization-link }}"
         target="_blank"
         rel="noopener"
@@ -30,19 +47,21 @@
           id="home-banner-logo"
           src="{{ site.organization-logo-nav | relative_url }}"
           alt="{{ site.organization-name }} home"
+          style="filter: brightness(1.2) drop-shadow(0 4px 8px rgba(0,0,0,0.3));"
         /> </a
       >{% endif %}
-      <h1 class="display-4">{{ site.title }}</h1>
+      <h1 class="display-3 mb-4 fade-in-up" style="text-shadow: 0 4px 8px rgba(0,0,0,0.3); color: white; background: none; -webkit-text-fill-color: white;">{{ site.title }}</h1>
       {% if site.tagline %}
-      <p class="mb-0">{{ site.tagline }}</p>
+      <p class="mb-0 fs-4 fade-in-up" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">{{ site.tagline }}</p>
       {% endif %}
     </div>
     {% unless site.data.theme.featured-image contains '/' %}
-    <div class="position-absolute bottom-0 end-0 px-2 bg-dark bg-opacity-75">
+    <div class="position-absolute bottom-0 end-0 p-3">
       <a
-        class="text-white fs-6"
+        class="btn btn-light btn-sm glass-card"
         href="{% if featuredItem.parentid %}{{ site.data.theme.featured-image | prepend: '#' | prepend: featuredItem.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}{% endif %}"
         title="{{ featuredItem.title | escape }}"
+        style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9);"
         >ピックアップコンテンツ</a
       >
     </div>
@@ -50,38 +69,42 @@
   </div>
 </div>
 {%- else -%}
-<div class="container pt-3">
-  <div class="row align-items-center">
-    <div
-      id="title"
-      class="{% if site.organization-logo-banner %}col-md-9{% else %}col-12{% endif %}"
-    >
-      <h1>
-        <a class="text-dark font-weight-normal" href="{{ site.baseurl }}/"
-          >{{ site.title }}</a
+<div class="container-fluid" style="background: var(--primary-gradient); color: white; padding: 3rem 0;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div
+        id="title"
+        class="{% if site.organization-logo-banner %}col-md-9{% else %}col-12{% endif %}"
+      >
+        <h1 class="fade-in-up" style="color: white; background: none; -webkit-text-fill-color: white; text-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+          <a class="text-white font-weight-normal text-decoration-none" href="{{ site.baseurl }}/"
+            >{{ site.title }}</a
+          >
+        </h1>
+        {% if site.tagline %}
+        <p class="fs-5 fade-in-up" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">{{ site.tagline }}</p>
+        {% endif %}
+      </div>
+      {% if site.organization-logo-banner %}
+      <div class="col-md-3 d-none d-lg-block text-end fade-in-up">
+        <a
+          class="btn glass-card"
+          href="{{ site.organization-link }}"
+          target="_blank"
+          rel="noopener"
+          style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);"
         >
-      </h1>
-      {% if site.tagline %}
-      <p>{{ site.tagline }}</p>
+          <img
+            class="img-fluid"
+            src="{{ site.organization-logo-banner | relative_url }}"
+            title="{{ site.organization-name }}"
+            alt="{{ site.organization-name }} home"
+            style="filter: brightness(1.2);"
+          />
+        </a>
+      </div>
       {% endif %}
     </div>
-    {% if site.organization-logo-banner %}
-    <div class="col-md-3 d-none d-lg-block text-end">
-      <a
-        class="btn btn-outline-light"
-        href="{{ site.organization-link }}"
-        target="_blank"
-        rel="noopener"
-      >
-        <img
-          class="img-fluid"
-          src="{{ site.organization-logo-banner | relative_url }}"
-          title="{{ site.organization-name }}"
-          alt="{{ site.organization-name }} home"
-        />
-      </a>
-    </div>
-    {% endif %}
   </div>
 </div>
 {%- endif -%}

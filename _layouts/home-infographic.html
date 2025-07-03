@@ -5,18 +5,44 @@ layout: page
 
 {%- assign items = site.data[site.metadata] | where_exp: 'item', 'item.objectid
 != nil' -%}
-<div class="row">
-  <div class="col-md-8">
-    {% include index/description.html %} {% include index/carousel.html
-    title="サンプルアイテム" height="300" %}
+
+<!-- Modern Hero Section -->
+<div class="section-padding">
+  <div class="row align-items-center">
+    <div class="col-md-8">
+      <div class="fade-in-up">
+        {% include index/description.html %}
+      </div>
+      
+      <!-- Modern Carousel with Glass Effect -->
+      <div class="glass-card mt-4 fade-in-up">
+        {% include index/carousel.html title="サンプルアイテム" height="350" %}
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="fade-in-up">
+        <!-- Modern Stats Cards -->
+        <div class="glass-card mb-4">
+          {% include index/objects.html %}
+        </div>
+        
+        <!-- Modern Featured Terms -->
+        <div class="glass-card mb-4">
+          {% include index/featured-terms.html field="subject" title="主な主題" btn-color="primary" %}
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-4">
-    <!-- {% include index/time.html %} -->
-    {% include index/featured-terms.html field="subject" title="主な主題"
-    btn-color="primary" %}
-    <!-- {% include index/featured-terms.html field="location"
-    title="Locations" btn-color="outline-secondary" %} -->
-    {% include index/objects.html %}
+</div>
+
+<!-- Modern Data Download Section -->
+<div class="section-padding-small bg-light">
+  <div class="row">
+    <div class="col-12">
+      <div class="glass-card fade-in-up">
+        {% include index/data-download.html %}
+      </div>
+    </div>
   </div>
-  <div class="col-md-12">{% include index/data-download.html %}</div>
 </div>
