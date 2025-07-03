@@ -2,3 +2,354 @@
     Put your custom SCSS here! 
     This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
 */
+
+/* Modern Design Updates */
+
+/* Import Google Fonts for modern typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for modern color scheme */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --dark-gradient: linear-gradient(135deg, #434343 0%, #000000 100%);
+  --light-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  
+  --modern-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --modern-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+  --modern-border-radius: 16px;
+  --modern-border-radius-small: 8px;
+  
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+/* Modern typography */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.02em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* Modern navigation */
+.navbar {
+  backdrop-filter: blur(10px);
+  background: var(--glass-bg) !important;
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-link {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 0.75rem 1rem !important;
+  border-radius: var(--modern-border-radius-small);
+}
+
+.nav-link:hover {
+  background: var(--glass-bg);
+  transform: translateY(-2px);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 80%;
+}
+
+/* Modern buttons */
+.btn {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: var(--modern-border-radius-small);
+  padding: 0.75rem 2rem;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: var(--modern-shadow);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--modern-shadow-hover);
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--secondary-gradient);
+  color: white;
+}
+
+.btn-outline-primary {
+  background: transparent;
+  border: 2px solid transparent;
+  background-image: var(--primary-gradient);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  color: #667eea;
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+/* Modern cards */
+.card {
+  border: none;
+  border-radius: var(--modern-border-radius);
+  box-shadow: var(--modern-shadow);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--modern-shadow-hover);
+}
+
+.card-header {
+  background: var(--light-gradient);
+  border: none;
+  padding: 1.5rem;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Modern banner */
+#collection-banner {
+  background: var(--primary-gradient);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0;
+  color: white;
+}
+
+#collection-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><polygon fill="rgba(255,255,255,0.1)" points="0,0 1000,50 1000,200 0,200"/></svg>');
+  background-size: cover;
+}
+
+#collection-banner .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Modern footer */
+.footer {
+  background: var(--dark-gradient);
+  color: white;
+  padding: 3rem 0 2rem;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent-gradient);
+}
+
+/* Glass morphism effects */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--modern-border-radius);
+  box-shadow: var(--modern-shadow);
+}
+
+/* Modern spacing */
+.section-padding {
+  padding: 5rem 0;
+}
+
+.section-padding-small {
+  padding: 3rem 0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Modern focus states */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Modern search box */
+.search-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--modern-border-radius);
+  padding: 1rem;
+  box-shadow: var(--modern-shadow);
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  padding: 0.75rem;
+}
+
+.search-box input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Modern timeline */
+.timeline-item {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--modern-border-radius);
+  margin-bottom: 2rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+  transform: translateX(10px);
+  box-shadow: var(--modern-shadow-hover);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 3rem 0;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass-bg: rgba(0, 0, 0, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+  }
+  
+  .card {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+  }
+  
+  body {
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+  }
+}
+
+/* Performance optimizations */
+* {
+  will-change: auto;
+}
+
+.card:hover,
+.btn:hover,
+.nav-link:hover {
+  will-change: transform;
+}
